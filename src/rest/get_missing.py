@@ -11,7 +11,6 @@ def main():
     rest_url = "<your rest url>"
     rest_call = {
         "missing":f"{constants['api']}/wanted/missing",
-        "movie":f"{constants['api']}/movie",
         "command":f"{constants['api']}/command"
     }
 
