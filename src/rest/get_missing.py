@@ -30,7 +30,8 @@ def main():
         missing = missing.json()
 
     
-    #check for the movie filters
+    #check for the movie filters and execute a post to the command api
+    #this triggers the automatic search function for the movie in radarr
     if specify_str is not None:
         d = [i for i in missing['records'] if specify_str in i['title']]
         for i in d:  
@@ -41,7 +42,8 @@ def main():
             )
         return
     
-    #grab all missing movies
+    #grab all missing movies and execute the post to the command api 
+    #this executes the automatic search function for the movie in radarr
     missing_movies = [i for i in missing['records']]
     for index,i in enumerate(islice(missing_movies,10)):  
         req = requests.post(
@@ -61,7 +63,7 @@ if __name__ == "__main__":
     """CONSTANTS
        radarrpagesize- defines how many missing movies are returned per page
                        pageSize is the actual parameter that radarr's rest api needs
-       api-
+       api- radarr's constant rest api path
     """
     constants = {"radarrPageSize":{"pageSize":100},"api":"api/v3"}
 
