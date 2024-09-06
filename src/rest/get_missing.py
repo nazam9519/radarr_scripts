@@ -1,6 +1,7 @@
 import requests
 import json 
 from itertools import islice
+import argparse
 
 """
     This script goes out to radarr, grabs missing movies and searches for them again
@@ -53,7 +54,7 @@ def main():
 
 if __name__ == "__main__":
     """CONSTANT GLOBALS
-       api_token from radarr -> settings -> general-> API Key
+       api_token- token from radarr -> settings -> general-> API Key
        headers- uses api_token for auth
     """
     api_token = "110b36b161b046c5b9a6551ee34479fd"
@@ -67,8 +68,11 @@ if __name__ == "__main__":
     constants = {"radarrPageSize":{"pageSize":100},"api":"api/v3"}
 
     """FILTER CONSTANTS
-    TODO change to using argparse instead since this will be a cron job
+       usage would be <exec> get_missing.py -f[--filter] 'optional movie filter' 
        specify-str: this will filter out movies without this title 
     """
-    specify_str = None
+    parser = argparse.ArgumentParser(description="A script to automate ur downloads")
+    parser.add_argument('f','--filter',required=False,default=None)
+    args = parser.parse_args()
+    specify_str = args.filter
     main()
