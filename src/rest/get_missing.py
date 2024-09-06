@@ -41,7 +41,7 @@ def main():
                 json={"name":"MoviesSearch","movieIds":[i['id']]}
             )
         return
-    
+    print("go time!")
     #grab all missing movies and execute the post to the command api 
     #this executes the automatic search function for the movie in radarr
     missing_movies = [i for i in missing['records']]
@@ -51,7 +51,8 @@ def main():
             headers=headers,
             json={"name":"MoviesSearch","movieIds":[i['id']]}
         )
-
+    with open('retried_movies.txt','w') as outfile:
+        json.dump(missing_movies,outfile,indent=4)
 if __name__ == "__main__":
     """CONSTANT GLOBALS
        api_token- token from radarr -> settings -> general-> API Key
@@ -72,7 +73,7 @@ if __name__ == "__main__":
        specify-str: this will filter out movies without this title 
     """
     parser = argparse.ArgumentParser(description="A script to automate ur downloads")
-    parser.add_argument('f','--filter',required=False,default=None)
+    parser.add_argument('-f','--filter',required=False,default=None)
     args = parser.parse_args()
     specify_str = args.filter
     main()
