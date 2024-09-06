@@ -8,7 +8,7 @@ from itertools import islice
 """
 def main():
     #setup url and rest calls
-    rest_url = "<your rest url>"
+    rest_url = "http://unraid.nabil.net:7878"
     rest_call = {
         "missing":f"{constants['api']}/wanted/missing",
         "command":f"{constants['api']}/command"
@@ -44,7 +44,7 @@ def main():
     #grab all missing movies and execute the post to the command api 
     #this executes the automatic search function for the movie in radarr
     missing_movies = [i for i in missing['records']]
-    for index,i in enumerate(islice(missing_movies,10)):  
+    for index,i in enumerate(islice(missing_movies,len(missing_movies))):  
         req = requests.post(
             url=f"{rest_url}/{rest_call['command']}",
             headers=headers,
@@ -56,7 +56,7 @@ if __name__ == "__main__":
        api_token from radarr -> settings -> general-> API Key
        headers- uses api_token for auth
     """
-    api_token = "<your radarr api token>"
+    api_token = "110b36b161b046c5b9a6551ee34479fd"
     headers={"Authorization":f"Bearer {api_token}"}
 
     """CONSTANTS
